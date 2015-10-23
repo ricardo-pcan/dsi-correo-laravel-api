@@ -3,6 +3,7 @@
 use Illuminate\Database\Seeder;
 use dsiCorreo\Role;
 use dsiCorreo\User;
+use dsiCorreo\Department;
 
 class AdminsSeeder extends Seeder
 {
@@ -13,15 +14,16 @@ class AdminsSeeder extends Seeder
      */
     public function run()
     {
-        //
-        DB::table('users')->delete();
-        $admin = User::create(
+        $department_id = Department::first()->id;
+        $admin = new User (
             array(
                 'name' => 'Admin',
                 'email' => 'admin@dsi_cgfie.local',
+                'department_id' => $department_id,
                 'password' => Crypt::encrypt('dsi')
             )
         );
+        $admin->save();
         $admin_role = Role::where('name', '=', 'admin')->get()->first();
         $admin->attachRole( $admin_role );
     }
