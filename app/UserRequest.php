@@ -6,6 +6,8 @@
     class UserRequest extends Model
     {
         protected $table = 'user_requests';
-        
-        protected $fillable = ['user_id', 'request_id'];
+
+        protected $fillable = ['user_id', 'request_id', 'created_at', 'updated_at' ];
+        protected $hidden = ['created_at', 'updated_at'];
     }
+

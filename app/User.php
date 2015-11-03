@@ -36,7 +36,7 @@ class User extends Model implements AuthenticatableContract,
      *
      * @var array
      */
-    protected $hidden = ['password', 'remember_token'];
+    protected $hidden = ['password', 'remember_token', 'created_at', 'roles'];
 
     public function comments()
     {
@@ -52,4 +52,5 @@ class User extends Model implements AuthenticatableContract,
     {
         return $this->belongsTo('dsiCorreo\Department');
     }
+
 }
