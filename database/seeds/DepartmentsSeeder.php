@@ -13,6 +13,8 @@ class DepartmentsSeeder extends Seeder
      */
     public function run()
     {
+        DB::table('user_requests')->delete();
+        DB::table('requests')->delete();
         DB::table('users')->delete();
         DB::table('departments')->delete();
         $faker = Faker::create();
