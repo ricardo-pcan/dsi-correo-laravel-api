@@ -6,8 +6,9 @@ use Illuminate\Http\Request;
 use dsiCorreo\Http\Requests;
 use dsiCorreo\Http\Controllers\Controller;
 use dsiCorreo\User;
+use \Validator;
 
-class UserController extends Controller
+class UserController extends AppController
 {
     /**
      * Display a listing of the resource.
@@ -58,7 +59,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+
     }
 
     /**
@@ -69,7 +70,40 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $validation = Validator::make( $request::all, [
+            'name' => 'required|max:100',
+            'email' => 'required|unique:users,email',
+            'password' => 'required|min:6',
+            'role' => 'required|integer|between:0,1'
+
+        ]);
+
+        if( $validation->fails() )
+        {
+            return response()->json( "Ha ocurrido un error", 402 );
+        }
+        else
+        {
+            $user = new User(
+                array(
+                    'name' => $request->name,
+                    'email' => $request->email,
+                    'password' => Crypt::encrypt( $request->password )
+                )
+            );
+            if( $user->save )
+            {
+                if( $request->role == 0 )
+                {
+                    $user->attachRole( $this->ROLE_USER );
+                }
+                else
+                {
+                    $user->attachRole( $this->ROLE_ADMIN );
+                }
+            }
+        }
     }
 
     /**

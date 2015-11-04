@@ -59,23 +59,4 @@ class Request extends Model
         return $this->hasOne( 'dsiCorreo\RequestCode' );
     }
 
-    // Custom methods
-
-    public static function per_user( $user_id )
-    {
-        $collection = collect();
-        $request_per_user = DB::table('requests')
-            ->join('user_requests', function( $join ) use( $user_id ) {
-                $join->on( 'requests.id', '=', 'user_requests.request_id' )
-                    ->where( 'user_requests.user_id', '=', $user_id );
-            })
-                ->get();
-        foreach( $request_per_user as $request )
-        {
-            $collection->push( $request->id );
-        }
-        return $collection;
-        //return $request_per_user;
-    }
-
 }

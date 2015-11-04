@@ -14,7 +14,7 @@ Route::resource('user', 'UserController');
 
 Route::get( 'dsi_users', [
     'uses' => 'UserController@get_dsi_users',
-    'as' => 'get_dsi_users'
+   'as' => 'get_dsi_users'
 ]);
 
 Route::get( 'admins', [
@@ -22,7 +22,11 @@ Route::get( 'admins', [
     'as' => 'get_admins'
 ]);
 
-Route::resource('request', 'RequestController');
-Route::resource('user.request', 'UserRequestController');
+Route::resource('request', 'RequestController',
+    [ 'only' => [ 'index' ] ] );
+
+Route::resource('user.request', 'UserRequestController',
+    [ 'except' => [ 'update' ] ] );
+
 //Route::resource('user.comment', 'UserCommentController');
 //Route::resource('request.user', 'RequestUserController');
