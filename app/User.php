@@ -10,6 +10,8 @@ use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 use Parsidev\Entrust\Traits\EntrustUserTrait;
+use dsiCorreo\Role;
+
 class User extends Model implements AuthenticatableContract,
                                     AuthorizableContract,
                                     CanResetPasswordContract
@@ -17,7 +19,7 @@ class User extends Model implements AuthenticatableContract,
 {
     use Authenticatable, CanResetPassword, EntrustUserTrait;
 
-    /**
+     /**
      * The database table used by the model.
      *
      * @var string
