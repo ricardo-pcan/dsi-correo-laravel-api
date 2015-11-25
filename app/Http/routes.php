@@ -31,5 +31,7 @@ Route::resource('users.requests', 'UserRequestController',
 Route::resource( 'requests.users', 'RequestUserController',
     [ 'only' => [ 'index', 'destroy' ] ] );
 
-Route::resource('users.comments', 'UserCommentController');
-//Route::resource('request.user', 'RequestUserController');
+Route::resource('users.comments', 'UserCommentController',
+    [ 'except' => [ 'destroy' ] ]);
+Route::resource( 'requests.comments', 'RequestCommentController',
+    [ 'only' => [ 'index', 'destroy' ] ]);

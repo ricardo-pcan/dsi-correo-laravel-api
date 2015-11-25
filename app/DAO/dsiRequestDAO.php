@@ -19,5 +19,11 @@ class dsiRequestDAO extends Model
         $request = dsiRequest::find( $request_id );
         return $request->users;
     }
+
+    public static function getAllComments( $request_id )
+    {
+        $request = dsiRequest::find( $request_id );
+        return $request->comments;
+    }
 }
 ?>
