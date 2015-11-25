@@ -10,7 +10,7 @@
 | and give it the controller to call when that URI is requested.
 |
 */
-Route::resource('user', 'UserController');
+Route::resource('users', 'UserController');
 
 Route::get( 'dsi_users', [
     'uses' => 'UserController@get_dsi_users',
@@ -22,11 +22,14 @@ Route::get( 'admins', [
     'as' => 'get_admins'
 ]);
 
-Route::resource('request', 'RequestController',
+Route::resource('requests', 'RequestController',
     [ 'only' => [ 'index' ] ] );
 
-Route::resource('user.request', 'UserRequestController',
-    [ 'except' => [ 'update' ] ] );
+Route::resource('users.requests', 'UserRequestController',
+    [ 'except' => [ 'create' ] ] );
 
-//Route::resource('user.comment', 'UserCommentController');
+Route::resource( 'requests.users', 'RequestUserController',
+    [ 'only' => [ 'index', 'destroy' ] ] );
+
+Route::resource('users.comments', 'UserCommentController');
 //Route::resource('request.user', 'RequestUserController');

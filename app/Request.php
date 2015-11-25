@@ -58,5 +58,9 @@ class Request extends Model
     {
         return $this->hasOne( 'dsiCorreo\RequestCode' );
     }
+     public function comments()
+     {
+        return $this->hasMany( 'dsiCorreo\Comment' );
+     }
 
 }

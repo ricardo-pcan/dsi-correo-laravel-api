@@ -3,7 +3,7 @@
 namespace dsiCorreo\DAO;
 
 use Illuminate\Database\Eloquent\Model;
-// use dsiCorreo\Request as dsiRequest;
+use dsiCorreo\Request as dsiRequest;
 use dsiCorreo\User;
 
 class dsiRequestDAO extends Model
@@ -17,7 +17,7 @@ class dsiRequestDAO extends Model
     public static function userPerRequest( $request_id )
     {
         $request = dsiRequest::find( $request_id );
-        return $request_>users;
+        return $request->users;
     }
 }
 ?>

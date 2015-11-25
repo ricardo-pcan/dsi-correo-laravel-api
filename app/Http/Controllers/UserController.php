@@ -6,7 +6,10 @@ use Illuminate\Http\Request;
 use dsiCorreo\Http\Requests;
 use dsiCorreo\Http\Controllers\Controller;
 use dsiCorreo\User;
+use dsiCorreo\DAO\UserDAO;
 use \Validator;
+use dsiCorreo\Role;
+use Crypt;
 
 class UserController extends AppController
 {
@@ -17,50 +20,29 @@ class UserController extends AppController
      */
     public function index()
     {
-        return response()->json( User::all(), 200 );
+        return response()->json( array(
+            'data' => User::all(),
+            'code' => 200
+        ), 200 );
 
     }
 
     public function get_dsi_users()
     {
-        $users = User::all();
-        $dsi_users = collect();
-
-        foreach ( $users as $user )
-        {
-            if( $user->hasRole('user_dsi', true) )
-            {
-                $dsi_users->push( $user );
-            }
-        }
-        return response()->json( $dsi_users, 200 );
+        return response()->json(array(
+            'data' => UserDAO::getDSIUsers(),
+            'code' => 200
+        ), 200);
     }
 
     public function get_admins()
     {
-        $users = User::all();
-        $admins = collect();
-
-        foreach ( $users as $user )
-        {
-            if ( $user->hasRole( 'admin', true ) )
-            {
-                $admins->push( $user );
-            }
-        }
-        return response()->json( $admins, 200 );
+        return response()->json(array(
+            'data' => UserDAO::getAdminUsers(),
+            'code' => 200
+        ), 200 );
     }
 
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -70,18 +52,23 @@ class UserController extends AppController
      */
     public function store(Request $request)
     {
-
-        $validation = Validator::make( $request::all, [
+        $user_dsi_role = Role::where( 'name', '=', 'user_dsi')->get()->first();
+        $admin_role = Role::where( 'name', '=', 'admin')->get()->first();
+        $validation = Validator::make( $request->all(), [
             'name' => 'required|max:100',
             'email' => 'required|unique:users,email',
             'password' => 'required|min:6',
+            'department_id' => 'required|integer|exists:departments,id',
             'role' => 'required|integer|between:0,1'
 
         ]);
 
         if( $validation->fails() )
         {
-            return response()->json( "Ha ocurrido un error", 402 );
+            return response()->json( array(
+                'code' => 402,
+                'errors' => $validation->errors()->all()
+            ), 402 );
         }
         else
         {
@@ -89,19 +76,38 @@ class UserController extends AppController
                 array(
                     'name' => $request->name,
                     'email' => $request->email,
+                    'department_id' => $request->department_id,
                     'password' => Crypt::encrypt( $request->password )
                 )
             );
-            if( $user->save )
+            if( $user->save() )
             {
                 if( $request->role == 0 )
                 {
-                    $user->attachRole( $this->ROLE_USER );
+                    $user->attachRole( $user_dsi_role );
+                    return response()->json( array(
+                        'message' => 'Tu Usuario DSI se ha registrado con exito',
+                        'code' => 200
+                    ) ,200 );
                 }
                 else
                 {
-                    $user->attachRole( $this->ROLE_ADMIN );
+                    if( $request->role == 1 )
+                    {
+                        $user->attachRole( $admin_role );
+                        return response()->json( array(
+                            'message' => 'Tu Usuario DSI se ha registrado con exito',
+                            'code' => 200
+                        ), 200 );
+                    }
                 }
+            }
+            else
+            {
+                return response()->json( array(
+                    'message' => 'No se ha podido guardar el usuario',
+                    'code' => 500
+                ), 500 );
             }
         }
     }
@@ -112,21 +118,24 @@ class UserController extends AppController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show( $user_id )
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
+        $user = User::find( $user_id );
+        if( !$user )
+        {
+            return response()->json( array(
+                'message' => "No se ha encontrado el usuario",
+                'code' => 404
+            ), 404);
+        }
+        else
+        {
+            return response()->json( array(
+                'data' => $user,
+                'code' => 200
+            ), 200 );
+        }
+    } 
 
     /**
      * Update the specified resource in storage.
@@ -135,9 +144,72 @@ class UserController extends AppController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $user_id)
     {
-        //
+        $user = User::find( $user_id );
+        if( !$user )
+        {
+            return response()->json( array(
+                'message' => "No se ha encontrado el usuario",
+                'code' => 404
+            ), 404);
+        }
+
+        $validation = Validator::make( $request->all(), [
+            'name' => 'required|max:100',
+            'email' => 'required|unique:users,email',
+            'password' => 'required|min:6',
+            'department_id' => 'required|integer|exists:departments,id',
+            'role' => 'required|integer|between:0,1'
+
+        ]);
+        if( $validation->fails() )
+        {
+            return response()->json( array(
+                'code' => 402,
+                'errors' => $validation->errors()->all()
+            ), 422 );
+        }
+        else
+        {
+            $user->update(
+                array(
+                    'name' => $request->name,
+                    'email' => $request->email,
+                    'department_id' => $request->department_id,
+                    'password' => Crypt::encrypt( $request->password )
+                )
+            );
+            if( $user->save() )
+            {
+                if( $request->role == 0 )
+                {
+                    $user->attachRole( $user_dsi_role );
+                    return response()->json( array(
+                        'message' => 'Tu Usuario DSI se ha actualizado con exito',
+                        'code' => 200
+                    ) ,200 );
+                }
+                else
+                {
+                    if( $request->role == 1 )
+                    {
+                        $user->attachRole( $admin_role );
+                        return response()->json( array(
+                            'message' => 'Tu Usuario DSI se ha actualizado con exito',
+                            'code' => 200
+                        ), 200 );
+                    }
+                }
+            }
+            else
+            {
+                return response()->json( array(
+                    'message' => 'No se ha podido actualizar el usuario',
+                    'code' => 500
+                ), 500 );
+            }
+        }
     }
 
     /**
