@@ -41,7 +41,8 @@ class UserRequestController extends Controller
             'role' => 'required|integer|between:0,3',
             'employee_id' => 'required|integer|unique:requests,employee_id',
             'extension_number' => 'required|integer',
-            'alternative_mail' => 'required|email|max:100'
+            'alternative_mail' => 'required|email|max:100',
+            'request_code' => 'max:50|unique:requests,request_code'
         ]);
         if( $validation->fails() )
         {
@@ -59,7 +60,8 @@ class UserRequestController extends Controller
                     'employee_id' => $request->employee_id,
                     'extension_number' => $request->extension_number,
                     'alternative_mail' => $request->alternative_mail,
-                    'status' => dsiRequest::$Status['Solicitado a DSI']
+                    'status' => dsiRequest::$Status['Solicitado a DSI'],
+                    'request_code' => $request->request_code
                 )
             );
             if( $request = $user->requests()->save( $request ) )
@@ -206,6 +208,23 @@ class UserRequestController extends Controller
                 }
 
             }
+            if( isset( $request->request_code )  )
+            {
+                $validation = Validator::make( $request->all(), [
+                    'request_code' => 'max:50|unique:requests,request_code'
+                ]);
+                if( $validation->fails()  )
+                {
+                    return response()->json( array(
+                        'code' => 422,
+                        'errors' => $validation->errors()->all()
+                    ), 422  );
+                }
+                else{
+                    $request_find->request_code = $request->request_code;
+                }
+
+            }
             if( $request_find->save() )
             {
                 return response()->json( array(
@@ -233,8 +252,10 @@ class UserRequestController extends Controller
                 'role' => 'required|integer|between:0,3',
                 'employee_id' => 'required|integer|unique:requests,employee_id',
                 'extension_number' => 'required|integer',
-                'alternative_mail' => 'required|email|max:100'
+                'alternative_mail' => 'required|email|max:100',
+                'request_code' => 'max:50|unique:requests,request_code'
             ]);
+
             if ( $validation->fails() )
             {
                 return response()->json( $validation->errors()->all(), 422 );

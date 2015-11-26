@@ -14,8 +14,13 @@ class RequestController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index( Request $request )
     {
+        if( $request->has('with')  )
+        {
+           //return "hola";
+            return dsiRequest::delivery();
+        }
         $requests = dsiRequest::all();
         return response()->json($requests, 200);
     }
