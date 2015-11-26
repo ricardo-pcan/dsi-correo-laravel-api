@@ -58,10 +58,4 @@ class Request extends Model
      {
         return $this->hasMany( 'dsiCorreo\Comment' );
      }
-
-    public function scopeDelivery( $query )
-    {
-        return $query->whereNotNull( 'request_code' )->get();
-    }
-
 }
