@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateRequestCodesTable extends Migration
+class AddNullableToRequestCode extends Migration
 {
     /**
      * Run the migrations.
@@ -12,11 +12,8 @@ class CreateRequestCodesTable extends Migration
      */
     public function up()
     {
-        Schema::create('request_codes', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->bigInteger('request_id')->unsigned();
-            $table->string('code', 50);
-            $table->timestamps();
+        Schema::table( 'requests', function( $table ){
+            $table->string( 'request_code', 50 )->nullable()->change();
         });
     }
 
@@ -27,6 +24,8 @@ class CreateRequestCodesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('request_codes');
+        Schema::table( 'requests', function( $table ){
+            $table->string( 'request_code', 50 )->change();
+        });
     }
 }

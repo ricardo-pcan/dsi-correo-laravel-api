@@ -25,5 +25,20 @@ class dsiRequestDAO extends Model
         $request = dsiRequest::find( $request_id );
         return $request->comments;
     }
+
+    public static function getAllDelivered()
+    {
+        $requests = dsiRequest::all();
+        $delivered_request = collect();
+        foreach( $requests as $request )
+        {
+            if( !empty( $request->request_code ) )
+            {
+                $delivered_request->push( $request );
+            }
+        }
+        return $delivered_request;
+
+    }
 }
 ?>

@@ -54,13 +54,8 @@ class Request extends Model
         return $this->belongsToMany('dsiCorreo\User', 'user_requests', 'request_id', 'user_id');
     }
 
-    public function requestCode()
-    {
-        return $this->hasOne( 'dsiCorreo\RequestCode' );
-    }
      public function comments()
      {
         return $this->hasMany( 'dsiCorreo\Comment' );
      }
-
 }

@@ -24,7 +24,7 @@ class UsersDsiSeeder extends Seeder
                 'name' => 'julito',
                 'email' => 'julito@dsi_cgfie.local',
                 'department_id' => $faker->numberBetween($first_id_department, $last_id_department),
-                'password' => Crypt::encrypt('123456')
+                'password' => bcrypt( '123456' )
             )
         );
         $user_dsi->save();

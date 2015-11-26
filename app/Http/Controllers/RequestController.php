@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use dsiCorreo\Http\Requests;
 use dsiCorreo\Http\Controllers\Controller;
 use dsiCorreo\Request as dsiRequest;
+use dsiCorreo\DAO\dsiRequestDAO;
 
 class RequestController extends Controller
 {
@@ -14,10 +15,36 @@ class RequestController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index( Request $request )
     {
-        $requests = dsiRequest::all();
-        return response()->json($requests, 200);
+        if( $request->has('with')  )
+        {
+            switch( $request->with )
+            {
+            case 'codes':
+                return response()->json( array(
+                    'message' => 'Peticiones con código',
+                    'data' => dsiRequestDAO::getAllDelivered(),
+                    'errors' => array(),
+                    'code' => 200
+                ), 200 );
+                break;
+            default:
+                return response()->json( array(
+                    'message' => 'No se encuentra ninguna petición con esos parámetros',
+                    'data' => array(),
+                    'errors' => array(),
+                    'code' => 404
+                ), 404 );
+                break;
+            }
+        }
+        return response()->json( array(
+            'message' => 'Todas las peticiones encontradas',
+            'data' => dsiRequest::all(),
+            'errors' => array(),
+            'code' => 200
+        ), 200 );
     }
 
 }
