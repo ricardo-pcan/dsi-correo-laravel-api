@@ -36,8 +36,8 @@ class dsiRequestDAO extends Model
             {
                 $delivered_request->push( $request );
             }
-            return $delivered_request;
         }
+        return $delivered_request;
 
     }
 }

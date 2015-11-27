@@ -35,6 +35,18 @@ class RequestsSeeder extends Seeder
             $select_user_id = $faker->numberBetween( $first_user_id, $last_user_id );
             $user = User::find( $select_user_id );
             $request = $user->requests()->save( $request );
+
+        }
+        $last_request_id = DB::table('requests')->orderBy('id', 'desc')->first()->id;
+        $first_request_id = dsiRequest::first()->id;
+        for( $a = 0; $a < 3; $a++ )
+        {
+            $request = dsiRequest::find( $faker->numberBetween ( $first_request_id, $last_request_id ) );
+            if( empty( $request->request_code ) )
+            {
+                $request->request_code = $faker->uuid;
+                $request->save();
+            }
         }
     }
 }

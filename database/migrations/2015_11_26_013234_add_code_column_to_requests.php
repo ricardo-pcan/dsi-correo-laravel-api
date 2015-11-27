@@ -15,7 +15,6 @@ class AddCodeColumnToRequests extends Migration
         Schema::table( 'requests', function( $table ){
             $table->string( 'request_code', 50 );
         });
-        Schema::drop( 'request_codes' );
     }
 
     /**
@@ -28,12 +27,6 @@ class AddCodeColumnToRequests extends Migration
         Schema::table( 'requests', function( $table ){
             $table->dropColumn( 'request_code' );
         } );
-        Schema::create('request_codes', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->bigInteger('request_id')->unsigned();
-            $table->string('code', 50);
-            $table->timestamps();
-        });
 
     }
 }

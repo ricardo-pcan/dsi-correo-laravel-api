@@ -21,7 +21,6 @@ class DatabaseSeeder extends Seeder
         $this->call(AdminsSeeder::class);
         $this->call(UsersDsiSeeder::class);
         $this->call(RequestsSeeder::class);
-        $this->call(RequestCodesSeeder::class);
 
         Model::reguard();
     }

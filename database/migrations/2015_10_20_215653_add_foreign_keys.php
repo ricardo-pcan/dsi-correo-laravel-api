@@ -24,11 +24,6 @@ class AddForeignKeys extends Migration
         {
             $table->foreign('department_id')->references('id')->on('departments');
         });
-        Schema::table('request_codes', function($table)
-        {
-            $table->foreign('request_id')->references('id')->on('requests');
-        });
-
     }
 
     /**
@@ -49,10 +44,5 @@ class AddForeignKeys extends Migration
         {
             $table->dropForeign('requests_department_id_foreign');
         });
-        Schema::table('request_codes', function($table)
-        {
-            $table->dropForeign('request_codes_request_id_foreign');
-        });
-
     }
 }
