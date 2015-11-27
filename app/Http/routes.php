@@ -36,3 +36,7 @@ Route::resource('users.comments', 'UserCommentController',
 
 Route::resource( 'requests.comments', 'RequestCommentController',
     [ 'only' => [ 'index', 'destroy' ] ]);
+
+Route::post('oauth/access_token', function() {
+    return Response::json(Authorizer::issueAccessToken());
+});
