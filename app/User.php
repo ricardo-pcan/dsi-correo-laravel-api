@@ -9,7 +9,7 @@ use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
-use Parsidev\Entrust\Traits\EntrustUserTrait;
+use Zizaco\Entrust\Traits\EntrustUserTrait;
 use dsiCorreo\Role;
 
 class User extends Model implements AuthenticatableContract,

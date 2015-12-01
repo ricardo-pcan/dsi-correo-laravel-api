@@ -1,6 +1,7 @@
-<?php namespace dsiCorreo;
+<?php
+namespace dsiCorreo;
 
-use Parsidev\Entrust\EntrustRole;
+use Zizaco\Entrust\EntrustRole;
 
 class Role extends EntrustRole
 {

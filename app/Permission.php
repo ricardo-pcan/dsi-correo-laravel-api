@@ -1,7 +1,7 @@
 <?php
 
 namespace dsiCorreo;
-use Parsidev\Entrust\EntrustPermission;
+use Zizaco\Entrust\EntrustPermission;
 
 class Permission extends EntrustPermission
 {
