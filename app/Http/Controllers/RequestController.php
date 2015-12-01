@@ -10,6 +10,11 @@ use dsiCorreo\DAO\dsiRequestDAO;
 
 class RequestController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware( 'c_permission:request_show', [ 'only' => [ 'index' ] ] );
+    }
+
     /**
      * Display a listing of the resource.
      *
