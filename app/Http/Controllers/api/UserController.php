@@ -1,10 +1,11 @@
 <?php
 
-namespace dsiCorreo\Http\Controllers;
+namespace dsiCorreo\Http\Controllers\api;
 
 use Illuminate\Http\Request;
 use dsiCorreo\Http\Requests;
 use dsiCorreo\Http\Controllers\Controller;
+use dsiCorreo\Http\Controllers\AppController;
 use dsiCorreo\User;
 use dsiCorreo\DAO\UserDAO;
 use \Validator;
@@ -135,7 +136,7 @@ class UserController extends AppController
                 'code' => 200
             ), 200 );
         }
-    } 
+    }
 
     /**
      * Update the specified resource in storage.

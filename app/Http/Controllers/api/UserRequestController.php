@@ -1,6 +1,6 @@
 <?php
 
-namespace dsiCorreo\Http\Controllers;
+namespace dsiCorreo\Http\Controllers\api;
 
 use Illuminate\Http\Request;
 use dsiCorreo\Http\Requests;
