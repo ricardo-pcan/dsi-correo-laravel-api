@@ -1,0 +1,47 @@
+//NAVBAR
+.navbar-default {
+    background-color: $green-lite;
+    border-color: $green-strong-base;
+}
+.navbar {
+    border-radius: 4px;
+}
+.navbar {
+    position: relative;
+    min-height: 70px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-bottom: 7px solid $blue-base;
+}
+
+/*
+*	NAvBAR ITEMS
+*/
+
+.navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
+    color: $black-base;
+    font-weight: normal;
+    background-color: $green-base;
+}
+.navbar-default .navbar-nav > li > a {
+    color: $blue2;
+    font-weight: bold;
+}
+.nav > li > a:hover, .nav > li > a:focus {
+    text-decoration: none;
+    background-color: #eeeeee;
+}
+.navbar-nav > li > a {
+    padding-top: 20px;
+    padding-bottom: 15px;
+}
+.navbar-nav > li > a {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    line-height: 20px;
+}
+.nav > li > a {
+    position: relative;
+    display: block;
+    padding: 20px 15px;
+}

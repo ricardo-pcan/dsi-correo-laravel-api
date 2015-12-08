@@ -43,3 +43,7 @@ Route::group(['namespace' => 'api'], function()
 Route::post('oauth/access_token', function() {
         return Response::json(Authorizer::issueAccessToken());
     });
+
+//Routes of web application
+
+Route::get( '/', 'DashboardController@index' );
