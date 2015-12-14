@@ -1,2 +1,10 @@
-// @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+html, body
+{
+	height: 100%
+}
 
+@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+@import "resources/assets/sass/resources";
+@import "resources/assets/sass/bootstrap_custom";
+@import "resources/assets/sass/bootstrap_custom";
+@import "resources/assets/sass/views/dashboard";

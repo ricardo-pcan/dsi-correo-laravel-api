@@ -1,0 +1,1 @@
+{"version":3,"sources":["app.js"],"names":[],"mappings":"AAAA;AACA;AACA;AACA;AACA;AACA;AACA","file":"core.js","sourcesContent":["//This is the main file of angular.js app\n\nvar app = angular.module('dsi_correo_main', [\n    // in this object inject the thirt party dependencies\n\n]);\n"],"sourceRoot":"/source/"}
