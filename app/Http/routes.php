@@ -47,3 +47,7 @@ Route::post('oauth/access_token', function() {
 //Routes of web application
 
 Route::get( '/', 'DashboardController@index' );
+
+
+//Login and logout routes
+Route::post( 'login', 'AuthController@login' );
