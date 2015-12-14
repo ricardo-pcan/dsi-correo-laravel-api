@@ -18,7 +18,7 @@ class AdminsSeeder extends Seeder
         $admin = new User (
             array(
                 'name' => 'Admin',
-                'email' => 'admin@dsi_cgfie.local',
+                'email' => 'admin@dsiCgfie.mx',
                 'department_id' => $department_id,
                 'password' => bcrypt('dsi')
             )

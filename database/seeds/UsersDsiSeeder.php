@@ -22,7 +22,7 @@ class UsersDsiSeeder extends Seeder
         $user_dsi = new User(
             array(
                 'name' => 'julito',
-                'email' => 'julito@dsi_cgfie.local',
+                'email' => 'julito@dsiCgfie.mx',
                 'department_id' => $faker->numberBetween($first_id_department, $last_id_department),
                 'password' => bcrypt( '123456' )
             )
