@@ -14,10 +14,12 @@ class AppController extends Controller
 			'title' => 'DSI Correos',
 			'menu_items' => array(
 				array(
+                    'type' => 'item',
 					'text' => 'Test',
 					'url' => 'http://www.google.com.mx'
 				),
 				array(
+                    'type' => 'item',
 					'text' => "IPN",
 					'url' => 'http://148.204.73.200:10080'
 				)

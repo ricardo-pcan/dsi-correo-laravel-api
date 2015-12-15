@@ -38,5 +38,7 @@ class Kernel extends HttpKernel
         'permission' => \Zizaco\Entrust\Middleware\EntrustPermission::class,
         'ability' => \Zizaco\Entrust\Middleware\EntrustAbility::class,
         'c_permission' => \dsiCorreo\Http\Middleware\PermissionCheck::class,
+        'c_auth' => \dsiCorreo\Http\Middleware\CustomAuthenticate::class,
+        'c_guest' => \dsiCorreo\Http\Middleware\CustomRedirectIfAuthenticated::class
     ];
 }

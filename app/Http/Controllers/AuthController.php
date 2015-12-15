@@ -17,7 +17,7 @@ class AuthController extends AppController
         $validator = $this->UserValidator( $request );
         if( $validator->fails() )
         {
-            return redirect( '/' )->withInput()->with( 'response', array(
+            return redirect()->route( 'Dashboard' )->withInput()->with( 'response', array(
                 'message' => 'Los campos no son corretos',
                 'errors' => $validator->errors(),
             ));
@@ -29,7 +29,7 @@ class AuthController extends AppController
                     'password' => $request->input( 'user-password')
                 ]))
             {
-                echo "listo";
+                return redirect()->route( 'UserDashboard' );
             }
             else
             {
@@ -37,5 +37,11 @@ class AuthController extends AppController
             }
         }
 
+    }
+
+    public function logout()
+    {
+        Auth::logout();
+        return redirect()->route( 'Dashboard' );
     }
 }

@@ -20,7 +20,7 @@ class AdminsSeeder extends Seeder
                 'name' => 'Admin',
                 'email' => 'admin@dsiCgfie.mx',
                 'department_id' => $department_id,
-                'password' => bcrypt('dsi')
+                'password' => bcrypt('123456')
             )
         );
         $admin->save();
