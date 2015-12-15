@@ -12,7 +12,7 @@
         <div class="row">
            <div class="login-formContainer">
                <div class="col-sm-12 col-md-4 col-md-offset-4 col-lg-4 col-lg-offset-4">
-                   <form class="form-horizontal" method="POST" action="{{ action( 'AuthController@login' ) }}">
+                   <form class="form-horizontal" method="POST" action="{{ route( 'Login' ) }}">
                          <div class="form-group">
                            <div class="col-sm-12">
                              <input type="text" class="form-control" name="user-mail" id="login-form-emailField" placeholder="Correo Electr&oacute;nico">

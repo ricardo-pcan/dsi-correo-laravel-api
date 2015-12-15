@@ -61,8 +61,11 @@ Route::group( [ 'namespace' => 'User' ], function(){
 });
 
 //Login and logout routes
-Route::post( 'login', 'AuthController@login' );
-Route::get( 'logout', [
+Route::post( '/login', [
+    'as' => 'Login',
+    'uses' => 'AuthController@login'
+]);
+Route::get( '/logout', [
      'as' => 'Logout',
      'uses' => 'AuthController@logout'
 ]);

@@ -9,6 +9,11 @@ use Auth;
 
 class DashboardController extends AppController{
 
+    public function __construct()
+    {
+        $this->middleware( 'c_auth' );
+    }
+
     public function index()
     {
         //get the current user

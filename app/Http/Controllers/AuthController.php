@@ -17,7 +17,7 @@ class AuthController extends AppController
         $validator = $this->UserValidator( $request );
         if( $validator->fails() )
         {
-            return redirect( '/' )->withInput()->with( 'response', array(
+            return redirect()->route( 'Dashboard' )->withInput()->with( 'response', array(
                 'message' => 'Los campos no son corretos',
                 'errors' => $validator->errors(),
             ));
