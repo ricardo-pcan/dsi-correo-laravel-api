@@ -29,7 +29,7 @@ class AuthController extends AppController
                     'password' => $request->input( 'user-password')
                 ]))
             {
-                echo "listo";
+                return redirect()->route( 'UserDashboard' );
             }
             else
             {
@@ -37,5 +37,11 @@ class AuthController extends AppController
             }
         }
 
+    }
+
+    public function logout()
+    {
+        Auth::logout();
+        return redirect()->route( 'Dashboard' );
     }
 }

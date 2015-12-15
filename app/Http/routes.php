@@ -46,8 +46,23 @@ Route::post('oauth/access_token', function() {
 
 //Routes of web application
 
-Route::get( '/', 'DashboardController@index' );
+Route::get( '/', [
+    'as' => 'Dashboard',
+    'uses' => 'DashboardController@index'
+]);
 
+
+//User routes
+Route::group( [ 'namespace' => 'User' ], function(){
+    Route::get( '/dashboard', [
+        'as' => 'UserDashboard',
+        'uses' => 'DashboardController@index'
+    ]);
+});
 
 //Login and logout routes
 Route::post( 'login', 'AuthController@login' );
+Route::get( 'logout', [
+     'as' => 'Logout',
+     'uses' => 'AuthController@logout'
+]);
