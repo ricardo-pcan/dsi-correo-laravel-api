@@ -12,7 +12,7 @@ class RequestController extends Controller
 {
     public function __construct()
     {
-        $this->middleware( 'c_permission:request_show', [ 'only' => [ 'index' ] ] );
+        //$this->middleware( 'c_permission:request_show', [ 'only' => [ 'index' ] ] );
     }
 
     /**
