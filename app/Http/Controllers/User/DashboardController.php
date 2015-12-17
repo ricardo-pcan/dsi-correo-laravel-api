@@ -20,6 +20,11 @@ class DashboardController extends AppController{
         $user = Auth::user();
 
         //prepare the vars for template
+
+        /*
+         * MENU
+         */
+
         $this->template_data[ 'menu_items' ] = array(
             array(
                 'type' => 'item',
@@ -37,6 +42,24 @@ class DashboardController extends AppController{
                 )
             ),
         );
+
+        /*
+         * PILLS
+         */
+
+        $this->template_data[ 'nav_items' ] = array(
+            array(
+                'type' => 'item',
+                'text' => 'Inicio',
+                'url' => '#'
+            ),
+            array(
+                'type' => 'item',
+                'text' => 'Crear petición',
+                'url'  => '#'
+            )
+        );
+
         return View( 'user/dashboard', $this->template_data );
     }
 }

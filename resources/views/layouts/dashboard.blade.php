@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es" ng-app="dsi_correo_main">
+<html lang="es" ng-app="dsi_correo">
 <head>
 	<meta charset="UTF-8">
 	<title>{{ $title }}</title>
@@ -68,11 +68,10 @@
 	</footer>
 	@section( 'scripts' )
 		<script src="{{ asset('vendor/js/app.js/') }}"></script>
-		<script src="{{ asset('vendor/js/angular.min.js/') }}"></script>
         <script src="{{ asset('vendor/js/angular-cookies.min.js/') }}"></script>
         <script src="{{ asset('vendor/js/query-string.js/') }}"></script>
 		<script src="{{ asset('vendor/js/angular-oauth2.min.js/') }}"></script>
-        <script src="{{ asset('assets/js/core.js') }}"></script>
+        <script src="{{ asset('assets/js/angular.js') }}"></script>
 	@show
 </body>
 </html>
